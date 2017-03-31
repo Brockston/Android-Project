@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class Info extends AppCompatActivity {
@@ -17,12 +18,16 @@ public class Info extends AppCompatActivity {
     TextView infotxt;
     TableLayout tablerow1;
 
+    private FirebaseAuth.AuthStateListener authListener;
+    private FirebaseAuth auth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
         this.setTitle("Information");
-
+        //get firebase auth instance
+        auth = FirebaseAuth.getInstance();
 
     }
 
@@ -67,6 +72,13 @@ public class Info extends AppCompatActivity {
                 browser.loadUrl("https://www.bch.org/Our-Services/Surgery/After-Your-Surgery.aspx");
                 tablerow1.setVisibility(tablerow1.GONE);
                 return true;
+            case R.id.signout:
+                if (item.isChecked())
+                    item.setChecked(false);
+                else
+                    item.setChecked(true);
+                auth.signOut();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -94,5 +106,7 @@ public class Info extends AppCompatActivity {
 
     } */
 
-
+    public void signOut() {
+        auth.signOut();
+    }
 }

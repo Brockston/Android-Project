@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1085710275151",
+    "firebase_url": "https://preop-d16c4.firebaseio.com",
+    "project_id": "preop-d16c4",
+    "storage_bucket": "preop-d16c4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1085710275151:android:50923487c02c416f",
+        "android_client_info": {
+          "package_name": "com.example.brocks.blount_hw4"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1085710275151-sbfqujiqtkvdrnml6s3hr3h91bksf9j5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.brocks.blount_hw4",
+            "certificate_hash": "238b381c1da2c1efd24969e56eef0cd5862106be"
+          }
+        },
+        {
+          "client_id": "1085710275151-1ps5tieko57m56r08b2f8aoqnmu1dpb7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEDDXAx2_NEdFsyr04Ih3xXeYuCwIpUuY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1085710275151-1ps5tieko57m56r08b2f8aoqnmu1dpb7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

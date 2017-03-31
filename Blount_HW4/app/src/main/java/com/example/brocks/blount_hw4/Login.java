@@ -5,41 +5,171 @@ package com.example.brocks.blount_hw4;
  */
 
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Login extends Activity implements View.OnClickListener {
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
+public class Login extends AppCompatActivity {
     private static final String TAG = "Login";
     private static final int REQUEST_SIGNUP = 0;
-    EditText email, password;
+    private EditText inputEmail, inputPassword;
     TextView signup;
     Button signin;
     String em, pass;
     final Context context = this;
+
+    private FirebaseAuth auth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Get Firebase auth instance
+        auth = FirebaseAuth.getInstance();
+
+        if (auth.getCurrentUser() != null) {
+            startActivity(new Intent(Login.this, MainActivity.class));
+            finish();
+        }
+
         setContentView(R.layout.activity_login);
-        email = (EditText) findViewById(R.id.Email);
-        email.setOnClickListener(this);
-        password = (EditText) findViewById(R.id.Password);
-        password.setOnClickListener(this);
+
+        inputEmail = (EditText) findViewById(R.id.Email);
+      //  inputEmail.setOnClickListener(this);
+        inputPassword = (EditText) findViewById(R.id.Password);
+      //  inputPassword.setOnClickListener(this);
         signin = (Button) findViewById(R.id.Signin);
-        signin.setOnClickListener(this);
+       // signin.setOnClickListener(this);
         signup = (TextView) findViewById(R.id.Signup);
-        signup.setOnClickListener(this);
+        //signup.setOnClickListener(this);
+
+        //Get Firebase auth instance
+        auth = FirebaseAuth.getInstance();
+    /*    signin.setOnClickListener(new View.OnClickListener() {
+                                      @Override
+                                      public void onClick(View v) {
+                                          String email = inputEmail.getText().toString();
+                                          final String password = inputPassword.getText().toString();
+
+                                          if (TextUtils.isEmpty(email)) {
+                                              Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+                                              return;
+                                          }
+
+                                          if (TextUtils.isEmpty(password)) {
+                                              Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+                                              return;
+                                          } */
+
+                                          signup.setOnClickListener(new View.OnClickListener() {
+                                              @Override
+                                              public void onClick(View v) {
+                                                  Intent intent = new Intent(Login.this, Signup.class);
+                                                  startActivity(intent);
+                                              }
+                                          });
+
+
+                                          signin.setOnClickListener(new View.OnClickListener() {
+                                              @Override
+                                              public void onClick(View v) {
+                                                  String email = inputEmail.getText().toString();
+                                                  final String password = inputPassword.getText().toString();
+
+                                                  if (TextUtils.isEmpty(email)) {
+                                                      Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+                                                      return;
+                                                  }
+
+                                                  if (TextUtils.isEmpty(password)) {
+                                                      Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+                                                      return;
+                                                  }
+
+                                                  //authenticate user
+                                                  auth.signInWithEmailAndPassword(email, password)
+                                                          .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
+                                                              @Override
+                                                              public void onComplete(@NonNull Task<AuthResult> task) {
+                                                                  // If sign in fails, display a message to the user. If sign in succeeds
+                                                                  // the auth state listener will be notified and logic to handle the
+                                                                  // signed in user can be handled in the listener.
+
+                                                                  if (!task.isSuccessful()) {
+                                                                      // there was an error
+                                                                      if (password.length() < 6) {
+                                                                          inputPassword.setError(getString(R.string.minimum_password));
+                                                                      } else {
+                                                                          Toast.makeText(Login.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
+                                                                      }
+                                                                  } else {
+                                                                      runOnUiThread(new Runnable() {
+                                                                          @Override
+                                                                          public void run() {
+
+                                                                              if (!isFinishing()){
+
+                                                                                  new AlertDialog.Builder(Login.this)
+                                                                                          .setTitle("Warning/Disclaimer")
+                                                                                          .setMessage("This is a disclaimer stating that anything shown on this will never be shared nor used, unless notifed by Brockston Blount and Alexis Cofield")
+                                                                                          .setCancelable(false)
+                                                                                          .setPositiveButton("I, Agree", new DialogInterface.OnClickListener() {
+                                                                                              @Override
+                                                                                              public void onClick(DialogInterface dialog, int which) {
+                                                                                                  Intent intent = new Intent(Login.this, MainActivity.class);
+                                                                                                  startActivity(intent);
+                                                                                                  finish();
+
+                                                                                              }
+                                                                                          }).show();
+                                                                              }
+                                                                              final ProgressDialog progressDialog = new ProgressDialog(Login.this, R.style.AppTheme);
+                                                                              progressDialog.setIndeterminate(true);
+                                                                              progressDialog.setMessage("Authenticating...");
+                                                                              progressDialog.show();
+
+                                                                              new android.os.Handler().postDelayed(
+                                                                                      new Runnable() {
+                                                                                          public void run() {
+                                                                                              // On complete call either onLoginSuccess or onLoginFailed
+                                                                                              // onLoginSuccess();
+                                                                                              // onLoginFailed();
+                                                                                              progressDialog.dismiss();
+                                                                                          }
+                                                                                      }, 3000);
+
+
+
+                                                                          }
+                                                              });
+
+                                                          }
+                                              }
+                                          });
+                                      }
+                                  });
 
     }
+}
+
+
+    /*
 
     @Override
     public void onClick(View view) {
@@ -91,14 +221,14 @@ public class Login extends Activity implements View.OnClickListener {
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
 
-        em = email.getText().toString();
-        pass = password.getText().toString();
+        em = inputEmail.getText().toString();
+        pass = inputPassword.getText().toString();
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
                         // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess();
+                       // onLoginSuccess();
                         // onLoginFailed();
                         progressDialog.dismiss();
                     }
@@ -117,7 +247,7 @@ public class Login extends Activity implements View.OnClickListener {
             }
         }
     }
-
+/*
     @Override
     public void onBackPressed() {
         // disable going back to the MainActivity
@@ -157,9 +287,5 @@ public class Login extends Activity implements View.OnClickListener {
         }
 
         return valid;
-    }
-}
-
-
-
+    } */
 
