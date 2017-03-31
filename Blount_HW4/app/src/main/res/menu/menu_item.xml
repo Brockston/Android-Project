@@ -8,5 +8,9 @@
             android:id="@+id/meds"
             android:title="@string/meds"
             android:orderInCategory="2"/>
+        <item
+            android:id="@+id/signout"
+            android:title="@string/signout"
+            android:orderInCategory="2"/>
     </group>
 </menu>

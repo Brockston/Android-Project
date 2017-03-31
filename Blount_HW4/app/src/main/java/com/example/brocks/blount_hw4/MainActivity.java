@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -24,10 +25,15 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.text.DateFormat;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    private FirebaseAuth.AuthStateListener authListener;
+    private FirebaseAuth auth;
 
 
     String[] items = {"Moses Cone Hospital", "Wesley Long Hospital", "Women's Hospital", "Cone Health", "Kindred Hospital",
@@ -70,7 +76,23 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
         this.setTitle("Main");
 
+        //get firebase auth instance
+        auth = FirebaseAuth.getInstance();
 
+        //get current user
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        authListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user == null) {
+                    // user auth state is changed - user is null
+                    // launch login activity
+                    startActivity(new Intent(MainActivity.this, Login.class));
+                    finish();
+                }
+            }
+        };
 
         //Intent intent = new Intent(this, Login.class);
         //startActivity(intent);
@@ -175,6 +197,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 Intent intent2 = new Intent(this, AddMed.class);
                 startActivity(intent2);
                 return true;
+            case R.id.signout:
+                if (item.isChecked())
+                    item.setChecked(false);
+                else
+                    item.setChecked(true);
+                auth.signOut();
+                Intent intent3 = new Intent(this, Login.class);
+                startActivity(intent3);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -197,16 +228,36 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
 
-    @Override
-    protected void onStart() {
-        super.onStart();
 
-    }
 
     @Override
     protected void onRestart() {
         super.onRestart();
 
+    }
+    //sign out method
+    public void signOut() {
+        auth.signOut();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        auth.addAuthStateListener(authListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (authListener != null) {
+            auth.removeAuthStateListener(authListener);
+        }
     }
 
 }
