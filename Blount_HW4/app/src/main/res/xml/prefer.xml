@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.brocks.blount_hw4.Preferences"
+    android:id="@+id/prefer"
+    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    >
+
+
+    <CheckBoxPreference
+        android:id="@+id/notitychk"
+        android:onClick="notifychkClicked"
+        android:defaultValue="false"
+        android:key="notifications_new_message_notify"
+        android:title="@string/pref_title_notify"/>
+<ListPreference
+    android:entries="@array/Font"
+    android:entryValues="@array/Font"
+    android:key="list"
+    android:title="Fonts"
+    android:summary="Select a Font"
+    />
+
+
+</PreferenceScreen>

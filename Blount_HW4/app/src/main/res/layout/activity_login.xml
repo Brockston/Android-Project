@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:id="@+id/Logo"
+        android:src="@drawable/logo"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_height="120dp" />
+
+    <TextView
+        android:id="@+id/Signup"
+        android:text="No account? Sign up!"
+        android:clickable="true"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="84dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_width="210dp"
+        android:layout_below="@+id/Signin"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/Signin"
+        android:text="Sign In"
+        android:layout_width="188dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Email"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="104dp" />
+
+    <EditText
+        android:id="@+id/Password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:hint="Password"
+        android:textAppearance="@style/TextAppearance.AppCompat.Inverse"
+        android:layout_below="@+id/Email"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"/>
+
+    <EditText
+        android:id="@+id/Email"
+        android:hint="Email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:layout_marginTop="58dp"
+        android:layout_below="@+id/Logo"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"/>
+</RelativeLayout>
