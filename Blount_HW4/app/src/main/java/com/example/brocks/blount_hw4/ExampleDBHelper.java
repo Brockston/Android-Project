@@ -7,9 +7,7 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-/**
- * Created by obaro on 02/04/2015.
- */
+
 public class ExampleDBHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "SQLiteExample.db";
@@ -18,8 +16,6 @@ public class ExampleDBHelper extends SQLiteOpenHelper {
     public static final String PERSON_TABLE_NAME = "person";
     public static final String PERSON_COLUMN_ID = "_id";
     public static final String PERSON_COLUMN_NAME = "name";
-    public static final String PERSON_COLUMN_GENDER = "gender";
-    public static final String PERSON_COLUMN_AGE = "age";
 
     public ExampleDBHelper(Context context) {
         super(context, DATABASE_NAME , null, DATABASE_VERSION);
@@ -30,9 +26,7 @@ public class ExampleDBHelper extends SQLiteOpenHelper {
         db.execSQL(
                 "CREATE TABLE " + PERSON_TABLE_NAME +
                         "(" + PERSON_COLUMN_ID + " INTEGER PRIMARY KEY, " +
-                        PERSON_COLUMN_NAME + " TEXT, " +
-                        PERSON_COLUMN_GENDER + " TEXT, " +
-                        PERSON_COLUMN_AGE + " INTEGER)"
+                        PERSON_COLUMN_NAME + " TEXT, "
         );
     }
 
@@ -42,13 +36,11 @@ public class ExampleDBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertPerson(String name, String gender, int age) {
+    public boolean insertPerson(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(PERSON_COLUMN_NAME, name);
-        contentValues.put(PERSON_COLUMN_GENDER, gender);
-        contentValues.put(PERSON_COLUMN_AGE, age);
 
         db.insert(PERSON_TABLE_NAME, null, contentValues);
         return true;
@@ -60,12 +52,10 @@ public class ExampleDBHelper extends SQLiteOpenHelper {
         return numRows;
     }
 
-    public boolean updatePerson(Integer id, String name, String gender, int age) {
+    public boolean updatePerson(Integer id, String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(PERSON_COLUMN_NAME, name);
-        contentValues.put(PERSON_COLUMN_GENDER, gender);
-        contentValues.put(PERSON_COLUMN_AGE, age);
         db.update(PERSON_TABLE_NAME, contentValues, PERSON_COLUMN_ID + " = ? ", new String[] { Integer.toString(id) } );
         return true;
     }
