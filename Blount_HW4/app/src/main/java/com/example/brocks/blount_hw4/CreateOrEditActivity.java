@@ -18,9 +18,6 @@ public class CreateOrEditActivity extends ActionBarActivity implements View.OnCl
 
     private ExampleDBHelper dbHelper ;
     EditText nameEditText;
-    EditText genderEditText;
-    EditText ageEditText;
-
     Button saveButton;
     LinearLayout buttonLayout;
     Button editButton, deleteButton;
@@ -31,13 +28,10 @@ public class CreateOrEditActivity extends ActionBarActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        personID = getIntent().getIntExtra(AddMed.KEY_EXTRA_CONTACT_ID, 0);
+        personID = getIntent().getIntExtra(AddMed.KEY_EXTRA_CONTACT_ID, 1);
 
         setContentView(R.layout.activity_edit);
         nameEditText = (EditText) findViewById(R.id.editTextName);
-        genderEditText = (EditText) findViewById(R.id.editTextGender);
-        ageEditText = (EditText) findViewById(R.id.editTextAge);
-
         saveButton = (Button) findViewById(R.id.saveButton);
         saveButton.setOnClickListener(this);
         buttonLayout = (LinearLayout) findViewById(R.id.buttonLayout);
@@ -55,8 +49,6 @@ public class CreateOrEditActivity extends ActionBarActivity implements View.OnCl
             Cursor rs = dbHelper.getPerson(personID);
             rs.moveToFirst();
             String personName = rs.getString(rs.getColumnIndex(ExampleDBHelper.PERSON_COLUMN_NAME));
-            String personGender = rs.getString(rs.getColumnIndex(ExampleDBHelper.PERSON_COLUMN_GENDER));
-            int personAge = rs.getInt(rs.getColumnIndex(ExampleDBHelper.PERSON_COLUMN_AGE));
             if (!rs.isClosed()) {
                 rs.close();
             }
@@ -64,14 +56,6 @@ public class CreateOrEditActivity extends ActionBarActivity implements View.OnCl
             nameEditText.setText(personName);
             nameEditText.setFocusable(false);
             nameEditText.setClickable(false);
-
-            genderEditText.setText((CharSequence) personGender);
-            genderEditText.setFocusable(false);
-            genderEditText.setClickable(false);
-
-            ageEditText.setText((CharSequence) (personAge + ""));
-            ageEditText.setFocusable(false);
-            ageEditText.setClickable(false);
         }
     }
 
@@ -87,14 +71,6 @@ public class CreateOrEditActivity extends ActionBarActivity implements View.OnCl
                 nameEditText.setEnabled(true);
                 nameEditText.setFocusableInTouchMode(true);
                 nameEditText.setClickable(true);
-
-                genderEditText.setEnabled(true);
-                genderEditText.setFocusableInTouchMode(true);
-                genderEditText.setClickable(true);
-
-                ageEditText.setEnabled(true);
-                ageEditText.setFocusableInTouchMode(true);
-                ageEditText.setClickable(true);
                 return;
             case R.id.deleteButton:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -122,9 +98,7 @@ public class CreateOrEditActivity extends ActionBarActivity implements View.OnCl
 
     public void persistPerson() {
         if(personID > 0) {
-            if(dbHelper.updatePerson(personID, nameEditText.getText().toString(),
-                    genderEditText.getText().toString(),
-                    Integer.parseInt(ageEditText.getText().toString()))) {
+            if(dbHelper.updatePerson(personID, nameEditText.getText().toString())) {
                 Toast.makeText(getApplicationContext(), "Person Update Successful", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), AddMed.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -135,9 +109,7 @@ public class CreateOrEditActivity extends ActionBarActivity implements View.OnCl
             }
         }
         else {
-            if(dbHelper.insertPerson(nameEditText.getText().toString(),
-                    genderEditText.getText().toString(),
-                    Integer.parseInt(ageEditText.getText().toString()))) {
+            if(dbHelper.insertPerson(nameEditText.getText().toString())) {
                 Toast.makeText(getApplicationContext(), "Person Inserted", Toast.LENGTH_SHORT).show();
             }
             else{
