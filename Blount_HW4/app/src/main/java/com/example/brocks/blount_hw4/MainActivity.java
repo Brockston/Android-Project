@@ -7,9 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.view.ContextMenu;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
@@ -40,13 +38,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             "Duke University Hospital", "UNC Health Care" };
     String[] a = {"Phone Call", "Text", "Email"};
     String[] dr = {"Dr. Abbott", "Dr. Barber", "Dr. Davis", "Dr. Johnson","Dr. Gregory", "Dr. Brown", "Dr. Cheek"};
-    ListView myList, doc;
+    static ListView myList;
+    ListView doc;
     DateFormat fmtDateAndTime = DateFormat.getDateTimeInstance();
-    TextView dateAndTimeLabel, notify;
-    Calendar dateAndTime = Calendar.getInstance();
+    static TextView dateAndTimeLabel, notify;
+    static Calendar dateAndTime = Calendar.getInstance();
+
+
 
     WebView browser;
     TextView infotxt;
+    static TextView text, selection, date;
     TableLayout tablerow1;
 
 
@@ -78,6 +80,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();
+
+        text = (TextView) findViewById(R.id.text);
+        selection = (TextView) findViewById(R.id.selection);
+        date = (TextView) findViewById(R.id.date);
+        notify = (TextView) findViewById(R.id.notify);
+
+
 
         //get current user
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -157,13 +166,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateOptionsMenu(menu);
-        MenuInflater inflater = getMenuInflater();
-        getMenuInflater().inflate(R.menu.main_menu, menu);
 
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -181,14 +184,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
         switch (item.getItemId()) {
-            case R.id.menu_prefer:
-                if (item.isChecked())
-                    item.setChecked(false);
-                else
-                    item.setChecked(true);
-                Intent intent = new Intent(this, Preferences.class);
-                startActivity(intent);
-                return true;
             case R.id.meds:
                 if (item.isChecked())
                     item.setChecked(false);
@@ -206,6 +201,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 Intent intent3 = new Intent(this, Login.class);
                 startActivity(intent3);
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }

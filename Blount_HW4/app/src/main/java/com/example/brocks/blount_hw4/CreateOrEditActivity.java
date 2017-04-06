@@ -27,7 +27,7 @@ public class CreateOrEditActivity extends ActionBarActivity implements View.OnCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        this.setTitle("Create Medicine Name");
         personID = getIntent().getIntExtra(AddMed.KEY_EXTRA_CONTACT_ID, 1);
 
         setContentView(R.layout.activity_edit);
@@ -90,7 +90,7 @@ public class CreateOrEditActivity extends ActionBarActivity implements View.OnCl
                             }
                         });
                 AlertDialog d = builder.create();
-                d.setTitle("Delete Person?");
+                d.setTitle("Delete Medicine?");
                 d.show();
                 return;
         }
@@ -99,21 +99,21 @@ public class CreateOrEditActivity extends ActionBarActivity implements View.OnCl
     public void persistPerson() {
         if(personID > 0) {
             if(dbHelper.updatePerson(personID, nameEditText.getText().toString())) {
-                Toast.makeText(getApplicationContext(), "Person Update Successful", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Medicine Update Successful", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), AddMed.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
             else {
-                Toast.makeText(getApplicationContext(), "Person Update Failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Medicine Update Failed", Toast.LENGTH_SHORT).show();
             }
         }
         else {
             if(dbHelper.insertPerson(nameEditText.getText().toString())) {
-                Toast.makeText(getApplicationContext(), "Person Inserted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Medicine Inserted", Toast.LENGTH_SHORT).show();
             }
             else{
-                Toast.makeText(getApplicationContext(), "Could not Insert person", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Could not Insert Medicine", Toast.LENGTH_SHORT).show();
             }
             Intent intent = new Intent(getApplicationContext(), AddMed.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

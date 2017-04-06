@@ -15,11 +15,18 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class Info extends AppCompatActivity {
     WebView browser;
-    TextView infotxt;
-    TableLayout tablerow1;
+    static TextView infotxt;
+    static TableLayout tablerow1;
+    static TextView txt1;
+    static TextView txt2;
+    static TextView txt3;
+    static TextView txt4;
+    static TextView txt5;
+
 
     private FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth auth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +49,11 @@ public class Info extends AppCompatActivity {
         browser = (WebView) findViewById(R.id.webkit);
         infotxt = (TextView) findViewById(R.id.infotxt);
         tablerow1 = (TableLayout) findViewById(R.id.tablerow1);
+           txt1 = (TextView) findViewById(R.id.txt1);
+           txt2 = (TextView) findViewById(R.id.txt2);
+           txt3 = (TextView) findViewById(R.id.txt3);
+           txt4 = (TextView) findViewById(R.id.txt4);
+           txt5 = (TextView) findViewById(R.id.txt5);
 
 
 
@@ -84,29 +96,11 @@ public class Info extends AppCompatActivity {
         }
     }
 
-    /*public void onCreateContextMenu(ContextMenu menu){
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        ArrayAdapter<String> itemsArrayList = new ArrayAdapter<String>(getBaseContext(),   android.R.layout.simple_list_item_1);
-        String[] itemNames = getResources().getStringArray(R.array.Font);
-
-
-        for (int i = 0; i < 16; i++) {
-            if (prefs.getBoolean("itemKey[i]", true)) {
-                itemsArrayList.add(itemNames[i]);
-            }
-        }
-
-        if (itemNames.equals("Default")) {
-            infotxt.setTypeface(Typeface.DEFAULT);
-
-        }
-        else if (itemNames.equals("Bold")) {
-            infotxt.setTypeface(Typeface.SERIF);
-        }
-
-    } */
-
     public void signOut() {
         auth.signOut();
+        Intent intent3 = new Intent(this, Login.class);
+        startActivity(intent3);
+
     }
+
 }
