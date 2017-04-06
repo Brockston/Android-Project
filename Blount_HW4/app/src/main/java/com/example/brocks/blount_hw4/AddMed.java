@@ -24,6 +24,7 @@ public class AddMed extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.medi_activity);
+        this.setTitle("Add Medicine");
 
         Button button = (Button) findViewById(R.id.addNew);
         button.setOnClickListener(new View.OnClickListener() {

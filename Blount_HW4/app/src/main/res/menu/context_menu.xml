@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 <item
-android:id="@+id/edit"
-    android:title="Edit"/>
+android:id="@+id/default1"
+    android:title="default"/>
+    <item
+        android:id="@+id/bold"
+        android:title="Bold"/>
+    <item
+        android:id="@+id/monospace"
+        android:title="Monospace"/>
+    <item
+        android:id="@+id/SanSerif"
+        android:title="Sans Serif"/>
+    <item
+        android:id="@+id/Serif"
+        android:title="Serif"/>
 </menu>
+

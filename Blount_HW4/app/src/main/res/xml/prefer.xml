@@ -16,13 +16,20 @@
         android:defaultValue="false"
         android:key="notifications_new_message_notify"
         android:title="@string/pref_title_notify"/>
-<ListPreference
+<Preference
+    android:id="@+id/listpref"
     android:entries="@array/Font"
-    android:entryValues="@array/Font"
-    android:key="list"
+    android:entryValues="@array/Typeface"
+    android:defaultValue="Bold"
+    android:key="@string/Fonts"
     android:title="Fonts"
-    android:summary="Select a Font"
+    android:summary="long press to choose your font."
     />
+    <!--Preference
+        android:key="@string/Fonts"
+        android:title="Font"
+        android:summary="Select a Font style"
+        /-->
 
 
 </PreferenceScreen>

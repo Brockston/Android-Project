@@ -6,6 +6,7 @@ package com.example.brocks.blount_hw4;
 
 import android.app.NotificationManager;
 import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -15,9 +16,16 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
+import android.view.ContextMenu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+//import android.support.annotation.LayoutRes;
+//import android.support.annotation.Nullable;
 
 
 public class Preferences extends PreferenceActivity {
@@ -31,8 +39,10 @@ public class Preferences extends PreferenceActivity {
     Preference myPref = (Preference) findPreference("notifications_new_message_notify");
 
 
-
-
+    String string = "";
+    String[] list;
+    ListView listView;
+    ArrayAdapter<String> ada;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,12 +57,20 @@ public class Preferences extends PreferenceActivity {
         mLoginPreference = getPreferenceManager().findPreference(
                 getString(R.string.notifications_new_message_notify));
 
-        //Preference list = findPreference("list");
-        //final ListPreference Mylist = (ListPreference) findPreference("list");
-
-
-
         Preference myPref = findPreference("notifications_new_message_notify");
+        final Preference Mylist = (Preference) findPreference("Fonts");
+        //Preference fonts = findPreference("Fonts");
+        //registerForContextMenu(fonts);
+
+        listView = (ListView) findViewById(R.id.list);
+
+        list = getResources().getStringArray(R.array.FontStyle);
+        ada = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_single_choice, list);
+        getListView().setAdapter(ada);
+        registerForContextMenu(getListView());
+
+
+
         myPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {
                 //open browser or intent here
@@ -74,20 +92,114 @@ public class Preferences extends PreferenceActivity {
         });
 
 
-
-
-
     }
 
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        getMenuInflater().inflate(R.menu.context_menu, menu);
+    }
 
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+       // AdapterView.AdapterContextMenuInfo adapterContextMenuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+//        string = list[(int) adapterContextMenuInfo.id];
 
-
-
-
-
-
-
+        switch (item.getItemId()) {
+            case R.id.bold:
+                if (item.equals("bold"))
+                    item.getItemId();
+                else
+                    item.setChecked(true);
+                //ada.remove(adapterContextMenuInfo.position);
+                Info.infotxt.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                Info.txt1.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                Info.txt2.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                Info.txt3.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                Info.txt4.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                Info.txt5.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                MainActivity.date.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                MainActivity.selection.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                MainActivity.text.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                MainActivity.notify.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                MainActivity.dateAndTimeLabel.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                return true;
+            case R.id.default1:
+                if (item.isChecked())
+                    item.setChecked(false);
+                else
+                    item.setChecked(true);
+                //ada.remove(adapterContextMenuInfo.position);
+                Info.infotxt.setTypeface(Typeface.DEFAULT);
+                Info.txt1.setTypeface(Typeface.DEFAULT);
+                Info.txt2.setTypeface(Typeface.DEFAULT);
+                Info.txt3.setTypeface(Typeface.DEFAULT);
+                Info.txt4.setTypeface(Typeface.DEFAULT);
+                Info.txt5.setTypeface(Typeface.DEFAULT);
+                MainActivity.date.setTypeface(Typeface.DEFAULT);
+                MainActivity.selection.setTypeface(Typeface.DEFAULT);
+                MainActivity.text.setTypeface(Typeface.DEFAULT);
+                MainActivity.notify.setTypeface(Typeface.DEFAULT);
+                MainActivity.dateAndTimeLabel.setTypeface(Typeface.DEFAULT);
+                return true;
+            case R.id.monospace:
+                if (item.equals("monospace"))
+                    item.getItemId();
+                else
+                    item.setChecked(true);
+                //ada.remove(adapterContextMenuInfo.position);
+                Info.infotxt.setTypeface(Typeface.MONOSPACE);
+                Info.txt1.setTypeface(Typeface.MONOSPACE);
+                Info.txt2.setTypeface(Typeface.MONOSPACE);
+                Info.txt3.setTypeface(Typeface.MONOSPACE);
+                Info.txt4.setTypeface(Typeface.MONOSPACE);
+                Info.txt5.setTypeface(Typeface.MONOSPACE);
+                MainActivity.date.setTypeface(Typeface.MONOSPACE);
+                MainActivity.selection.setTypeface(Typeface.MONOSPACE);
+                MainActivity.text.setTypeface(Typeface.MONOSPACE);
+                MainActivity.notify.setTypeface(Typeface.MONOSPACE);
+                MainActivity.dateAndTimeLabel.setTypeface(Typeface.MONOSPACE);
+                return true;
+            case R.id.SanSerif:
+                if (item.equals("SanSerif"))
+                    item.getItemId();
+                else
+                    item.setChecked(true);
+                //ada.remove(adapterContextMenuInfo.position);
+                Info.infotxt.setTypeface(Typeface.SANS_SERIF);
+                Info.txt1.setTypeface(Typeface.SANS_SERIF);
+                Info.txt2.setTypeface(Typeface.SANS_SERIF);
+                Info.txt3.setTypeface(Typeface.SANS_SERIF);
+                Info.txt4.setTypeface(Typeface.SANS_SERIF);
+                Info.txt5.setTypeface(Typeface.SANS_SERIF);
+                MainActivity.date.setTypeface(Typeface.SANS_SERIF);
+                MainActivity.selection.setTypeface(Typeface.SANS_SERIF);
+                MainActivity.text.setTypeface(Typeface.SANS_SERIF);
+                MainActivity.notify.setTypeface(Typeface.SANS_SERIF);
+                MainActivity.dateAndTimeLabel.setTypeface(Typeface.SANS_SERIF);
+                return true;
+            case R.id.Serif:
+                if (item.equals("Serif"))
+                    item.getItemId();
+                else
+                    item.setChecked(true);
+                //ada.remove(adapterContextMenuInfo.position);
+                Info.infotxt.setTypeface(Typeface.SERIF);
+                Info.txt1.setTypeface(Typeface.SERIF);
+                Info.txt2.setTypeface(Typeface.SERIF);
+                Info.txt3.setTypeface(Typeface.SERIF);
+                Info.txt4.setTypeface(Typeface.SERIF);
+                Info.txt5.setTypeface(Typeface.SERIF);
+                MainActivity.date.setTypeface(Typeface.SERIF);
+                MainActivity.selection.setTypeface(Typeface.SERIF);
+                MainActivity.text.setTypeface(Typeface.SERIF);
+                MainActivity.notify.setTypeface(Typeface.SERIF);
+                MainActivity.dateAndTimeLabel.setTypeface(Typeface.SERIF);
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -154,6 +266,7 @@ public class Preferences extends PreferenceActivity {
         return mDelegate;
     }
 
-
-
 };
+
+
+
