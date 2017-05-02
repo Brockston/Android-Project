@@ -1,12 +1,16 @@
 package com.example.brocks.blount_hw4;
 
 import android.app.DatePickerDialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,6 +49,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     static Calendar dateAndTime = Calendar.getInstance();
 
 
+    NotificationCompat.Builder notification;
+    private static final int uniqueID = 45612;
+    private static final int uniqueID2 = 456;
 
     WebView browser;
     TextView infotxt;
@@ -77,6 +84,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(icicle);
         setContentView(R.layout.activity_main);
         this.setTitle("Main");
+
+        notification = new NotificationCompat.Builder(this);
+        Context context = getApplicationContext();
+        notification.setAutoCancel(true);
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();
@@ -132,12 +144,56 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 if (i == 0) {
                     notify.setText("You Selected Phone Calls");
                     notify.setTextColor(Color.WHITE);
+                    notification.setSmallIcon(R.drawable.logo);
+                    notification.setTicker("This is the Ticker");
+                    notification.setWhen(System.currentTimeMillis());
+                    notification.setContentTitle("Pre-Op Notification");
+                    notification.setContentText("You Selected Phone Calls");
+
+                /*Intent intent = new Intent(this, MainActivity.class);
+                PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                notification.setContentIntent(pendingIntent); */
+
+                    NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                    nm.notify(uniqueID, notification.build());
+                   // return false;
                 } else if (i == 1) {
                     notify.setText("You Selected Text Messages");
                     notify.setTextColor(Color.WHITE);
+                    notify.setText("You Selected Phone Calls");
+                    notify.setTextColor(Color.WHITE);
+                    notification.setSmallIcon(R.drawable.logo);
+                    notification.setTicker("This is the Ticker");
+                    notification.setWhen(System.currentTimeMillis());
+                    notification.setContentTitle("Pre-Op Notification");
+                    notification.setContentText("You Selected Text Messages");
+
+                Intent intent = new Intent(view.getContext(), MainActivity.class);
+                PendingIntent pendingIntent = PendingIntent.getActivity(view.getContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                notification.setContentIntent(pendingIntent);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                    nm.notify(uniqueID, notification.build());
+                    notification.setOngoing(true);
                 } else if (i == 2) {
                     notify.setText("You Selected Emails");
                     notify.setTextColor(Color.WHITE);
+
+                    notification.setSmallIcon(R.drawable.logo);
+                    notification.setTicker("This is the Ticker");
+                    notification.setWhen(System.currentTimeMillis());
+                    notification.setContentTitle("Pre-Op Notification");
+                    notification.setContentText("You Selected Emails");
+
+                Intent intent5 = new Intent(view.getContext(), MainActivity.class);
+                    intent5.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+               // PendingIntent pendingIntent = PendingIntent.getActivity(view.getContext(), 0, intent5, 0);
+                //notification.setContentIntent(pendingIntent);
+                  //  intent5.notify(0, notification);
+                    notification.setOngoing(true);
+
+                    NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                    nm.notify(uniqueID2, notification.build());
                 }
             }
         });
@@ -149,6 +205,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         dateAndTime.get(Calendar.YEAR),
                         dateAndTime.get(Calendar.MONTH),
                         dateAndTime.get(Calendar.DAY_OF_MONTH)).show();
+
+
+
             }
         });
         time.setOnClickListener(new View.OnClickListener() {
@@ -218,9 +277,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 .format(dateAndTime.getTime()));
     }
 
-    public void btnNext(View view) {
-        startActivity(new Intent(this, Info.class));
-    }
+
 
 
 
