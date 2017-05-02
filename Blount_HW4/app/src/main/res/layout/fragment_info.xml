@@ -1,0 +1,79 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.brocks.blount_hw4.infoFragment">
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tablerow1">
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:text="•"
+                android:textSize="16dp"></TextView>
+            <TextView
+                android:id="@+id/txt1"
+                android:layout_column="2"
+                android:textSize="16dp"
+                android:layout_width="wrap_content"
+                android:text="Please follow all your physician’s instructions carefully. They are for your safety. If these instructions are not followed, it could result in the cancellation of your surgery"></TextView>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:text="•"></TextView>
+            <TextView
+                android:id="@+id/txt2"
+                android:layout_column="2"
+                android:textSize="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:text="Unless given permission by your surgeon, do not eat or drink after midnight in the evening prior to your surgery. You can brush your teeth and rinse your mouth, but do not swallow any water."></TextView>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:text="•"></TextView>
+            <TextView
+                android:id="@+id/txt3"
+                android:layout_column="2"
+                android:textSize="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:text="If you take medication regularly for any condition, ask your surgeon whether you can take it on the day of surgery. These include insulin, blood pressure pills, aspirin, birth control pills, heart or asthma medications. If you have been told to take medications, swallow them with small sips of water."></TextView>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:text="•"></TextView>
+            <TextView
+                android:id="@+id/txt4"
+                android:layout_column="2"
+                android:textSize="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:text="Do not smoke, drink alcohol (liquor, beer, or wine) or use recreational drugs for at least 72 hours prior to surgery."></TextView>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_column="1"
+                android:text="•"></TextView>
+            <TextView
+                android:id="@+id/txt5"
+                android:layout_column="2"
+                android:textSize="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:text="Do not shave surgical site."></TextView>
+        </TableRow>
+
+    </TableLayout>
+    <WebView android:id="@+id/webkit"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        />
+
+</LinearLayout>

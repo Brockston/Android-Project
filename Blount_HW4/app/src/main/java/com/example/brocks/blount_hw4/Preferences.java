@@ -24,9 +24,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-//import android.support.annotation.LayoutRes;
-//import android.support.annotation.Nullable;
-
+// THis preference class details what each preference will do when the are touched
 
 public class Preferences extends PreferenceActivity {
     private AppCompatDelegate mDelegate;
@@ -36,7 +34,7 @@ public class Preferences extends PreferenceActivity {
 
     private Preference mLoginPreference;
 
-    Preference myPref = (Preference) findPreference("notifications_new_message_notify");
+
 
 
     String string = "";
@@ -59,8 +57,7 @@ public class Preferences extends PreferenceActivity {
 
         Preference myPref = findPreference("notifications_new_message_notify");
         final Preference Mylist = (Preference) findPreference("Fonts");
-        //Preference fonts = findPreference("Fonts");
-        //registerForContextMenu(fonts);
+
 
         listView = (ListView) findViewById(R.id.list);
 
@@ -69,7 +66,8 @@ public class Preferences extends PreferenceActivity {
         getListView().setAdapter(ada);
         registerForContextMenu(getListView());
 
-
+// on click listener for our checkbox to display a notification in the
+        // notification panel when clicked
 
         myPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {
@@ -94,16 +92,15 @@ public class Preferences extends PreferenceActivity {
 
     }
 
-
+// grabing the context menu for the preferences
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         getMenuInflater().inflate(R.menu.context_menu, menu);
     }
-
+// creating the context menu when each item is selected
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-       // AdapterView.AdapterContextMenuInfo adapterContextMenuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-//        string = list[(int) adapterContextMenuInfo.id];
+      // Creating a switch case statement to decide what will happen based off of each item
 
         switch (item.getItemId()) {
             case R.id.bold:
@@ -129,7 +126,6 @@ public class Preferences extends PreferenceActivity {
                     item.setChecked(false);
                 else
                     item.setChecked(true);
-                //ada.remove(adapterContextMenuInfo.position);
                 Info.infotxt.setTypeface(Typeface.DEFAULT);
                 Info.txt1.setTypeface(Typeface.DEFAULT);
                 Info.txt2.setTypeface(Typeface.DEFAULT);
@@ -147,7 +143,6 @@ public class Preferences extends PreferenceActivity {
                     item.getItemId();
                 else
                     item.setChecked(true);
-                //ada.remove(adapterContextMenuInfo.position);
                 Info.infotxt.setTypeface(Typeface.MONOSPACE);
                 Info.txt1.setTypeface(Typeface.MONOSPACE);
                 Info.txt2.setTypeface(Typeface.MONOSPACE);
@@ -165,7 +160,6 @@ public class Preferences extends PreferenceActivity {
                     item.getItemId();
                 else
                     item.setChecked(true);
-                //ada.remove(adapterContextMenuInfo.position);
                 Info.infotxt.setTypeface(Typeface.SANS_SERIF);
                 Info.txt1.setTypeface(Typeface.SANS_SERIF);
                 Info.txt2.setTypeface(Typeface.SANS_SERIF);
@@ -183,7 +177,6 @@ public class Preferences extends PreferenceActivity {
                     item.getItemId();
                 else
                     item.setChecked(true);
-                //ada.remove(adapterContextMenuInfo.position);
                 Info.infotxt.setTypeface(Typeface.SERIF);
                 Info.txt1.setTypeface(Typeface.SERIF);
                 Info.txt2.setTypeface(Typeface.SERIF);

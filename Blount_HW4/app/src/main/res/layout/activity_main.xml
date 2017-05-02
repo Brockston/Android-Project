@@ -113,8 +113,7 @@
         android:id="@+id/list"
         android:layout_width="wrap_content"
         android:layout_height="246dp"
-        android:drawSelectorOnTop="false"
-        />
+        android:drawSelectorOnTop="false" />
 
     <TableRow
         android:layout_width="match_parent"
@@ -129,6 +128,6 @@
         android:background="@android:color/holo_red_dark"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/white"
-        android:onClick="btnNext"/>
+            android:onClick="btnNext"/>
     </TableRow>
 </LinearLayout>
